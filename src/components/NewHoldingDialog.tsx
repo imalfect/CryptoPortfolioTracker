@@ -20,31 +20,28 @@ import { useToast } from '@/components/ui/use-toast';
 export default function NewHoldingDialog(props: { userId: string; reload: () => void }) {
 	const toast = useToast();
 	const [error, setError] = useState('');
-	const [cryptoUrl, setCryptoUrl] = useState('');
-	const [cryptoUrlValid, setCryptoUrlValid] = useState(false);
+	const [cryptoId, setCryptoId] = useState('');
+	const [cryptoIdValid, setCryptoIdValid] = useState(false);
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
-	const cryptoUrlRegex = new RegExp(
-		'https://www.coingecko.com/en/coins/[a-zA-Z0-9-]+/?(\\?ref=coingecko)?$'
-	);
+	// All lowercase no spaces regex
+	const cryptoIdRegex = new RegExp('^[a-z0-9-]+$');
 	const cryptoUrlChanged = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setCryptoUrl(e.target.value);
-		const match = cryptoUrlRegex.test(e.target.value);
+		setCryptoId(e.target.value);
+		const match = cryptoIdRegex.test(e.target.value);
 		console.log(match);
 		if (match) {
-			setCryptoUrlValid(true);
+			setCryptoIdValid(true);
 		} else {
-			setCryptoUrlValid(false);
+			setCryptoIdValid(false);
 		}
 	};
 	const createHolding = async () => {
 		// Get the cryptocurrency ID from the URL
-		const urlParts = cryptoUrl.split('/');
-		const cryptocurrencyId = urlParts.pop();
-		const cryptoInfo = await getCryptocurrencyData(cryptocurrencyId!).catch((e) => {
-			setError(e.message);
+		const cryptoInfo = await getCryptocurrencyData(cryptoId!).catch((e) => {
+			setError('Crypto not supported');
 		});
 		if (cryptoInfo) {
-			setUserHolding(props.userId, cryptocurrencyId!, 0)
+			setUserHolding(props.userId, cryptoId!, 0)
 				.catch((e) => {
 					setError(e.message);
 				})
@@ -56,6 +53,9 @@ export default function NewHoldingDialog(props: { userId: string; reload: () => 
 						duration: 5000
 					});
 					setIsDialogOpen(false);
+					setError('');
+					setCryptoId('');
+					setCryptoIdValid(false);
 				});
 		}
 	};
@@ -80,7 +80,7 @@ export default function NewHoldingDialog(props: { userId: string; reload: () => 
 						<a href={'https://coingecko.com'} target={'_blank'} rel={'noreferrer'}>
 							CoinGecko
 						</a>{' '}
-						to find the cryptocurrency you want to add, copy its URL and paste it below.
+						to find the cryptocurrency you want to add, copy its API ID and paste it below.
 					</DialogDescription>
 				</DialogHeader>
 				<div className={'flex flex-col items-center'}>
@@ -89,13 +89,13 @@ export default function NewHoldingDialog(props: { userId: string; reload: () => 
 						color={'#FF0000'}
 						className={clsx(
 							'border-2',
-							cryptoUrlValid ? 'border-green-500' : null,
-							!cryptoUrlValid && cryptoUrl !== '' ? 'border-red-500' : null
+							cryptoIdValid ? 'border-green-500' : null,
+							!cryptoIdValid && cryptoId !== '' ? 'border-red-500' : null
 						)}
 					/>
 					<Button
 						className={'mt-4'}
-						disabled={!cryptoUrlValid}
+						disabled={!cryptoIdValid}
 						onClick={() => {
 							// noinspection JSIgnoredPromiseFromCall
 							createHolding();

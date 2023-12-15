@@ -60,7 +60,7 @@ export default async function getCryptocurrencyData(cryptocurrencyId: string): P
 				change: cryptoData.market_data.price_change_percentage_24h,
 				history: priceHistoryArray
 			})
-			.returning();
+			.returning()[0];
 	} else {
 		// Cryptocurrency was found
 		return cryptocurrencyData[0];
