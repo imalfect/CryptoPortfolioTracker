@@ -12,7 +12,7 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
 	title: 'Monetis',
-	description: 'Monetis is a simple, fast, and secure way to track your crypto holdings.'
+	description: 'Monetis is a simple, fast, free, and secure way to track your crypto holdings.'
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
