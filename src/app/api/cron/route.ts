@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import db from '../../../../db/index';
 import { cryptocurrencies } from '../../../../db/schema';
 import { ofetch } from 'ofetch';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { eq } from 'drizzle-orm';
 type ResponseData = {
 	ok: boolean;
@@ -121,7 +121,7 @@ function rescheduleChunks(cryptosChunk: any[]) {
 	}
 }
 
-async function handler(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+async function handler(req: NextRequest, res: NextResponse<ResponseData>) {
 	const headersList = headers();
 	if (headersList.get('Authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
 		return NextResponse.json('Unauthorized', { status: 401 });
