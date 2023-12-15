@@ -41,7 +41,7 @@ export default async function getCryptocurrencyData(cryptocurrencyId: string): P
 			throw new Error('Cryptocurrency not found');
 		}
 		const cryptoPriceHistory = await ofetch<{ prices: [number, number][]; error?: any }>(
-			`https://api.coingecko.com/api/v3/coins/${cryptocurrencyId}/market_chart?vs_currency=usd&days=365&precision=2`,
+			`https://api.coingecko.com/api/v3/coins/${cryptocurrencyId}/market_chart?vs_currency=usd&days=30`,
 			{ ignoreResponseError: true, retry: 3, retryDelay: 500 }
 		);
 		if (cryptoPriceHistory.error) {
