@@ -49,7 +49,8 @@ export default function NewHoldingDialog(props: { userId: string; reload: () => 
 					props.reload();
 					toast.toast({
 						title: '👍 Holding created',
-						description: `You have created a new holding for ${cryptoInfo.name}.`,
+						// @ts-ignore apparently not wtf drizzle
+						description: `You have created a new holding for ${cryptoInfo[0].name}.`,
 						duration: 5000
 					});
 					setIsDialogOpen(false);
