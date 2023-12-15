@@ -11,7 +11,7 @@ export default function NewHoldingCard(props: { userId: string; reload: () => vo
 				</CardTitle>
 				<CardDescription>Add a new holding to your portfolio.</CardDescription>
 			</CardHeader>
-			<CardContent className={'flex flex-col justify-center'}>
+			<CardContent className={'flex flex-col justify-centerb'}>
 				<NewHoldingDialog userId={props.userId} reload={props.reload} />
 			</CardContent>
 		</Card>

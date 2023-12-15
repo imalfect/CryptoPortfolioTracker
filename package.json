@@ -22,6 +22,8 @@
     "@radix-ui/react-toggle-group": "^1.0.4",
     "@typescript-eslint/eslint-plugin": "^6.13.2",
     "@typescript-eslint/parser": "^6.13.2",
+    "@vercel/analytics": "^1.1.1",
+    "@vercel/speed-insights": "^1.0.2",
     "adapters": "link:@auth/core/adapters",
     "bignumber.js": "^9.1.2",
     "class-variance-authority": "^0.7.0",

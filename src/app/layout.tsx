@@ -6,7 +6,8 @@ import Navbar from '@/components/Navbar';
 import NextAuthProvider from '@/components/NextAuthProvider';
 import { Toaster } from '@/components/ui/toaster';
 import React from 'react';
-
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -23,6 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 						<Navbar />
 						{children}
 						<Toaster />
+						<Analytics />
+						<SpeedInsights />
 					</ThemeProvider>
 				</NextAuthProvider>
 			</body>
