@@ -52,6 +52,7 @@ Configure the database using scripts.
 ```bash
 $ pnpm run db:push
 ```
+**NOTE**: Monetis is configured to run properly with vercel, therefore ?ssl=true is added to the connection. If you wish to disable it, edit the `drizzle.config.ts` and `src/db/index.ts` files.
 
 ### Starting Next.js in development mode
 Start Next.js in development mode
